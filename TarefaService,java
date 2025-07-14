@@ -1,0 +1,43 @@
+package service;
+
+import model.Tarefa;
+import repository.TarefaRepository;
+import java.util.List;
+
+public class TarefaService {
+    private TarefaRepository repository;
+
+    public TarefaService() {
+        this.repository = new TarefaRepository();
+    }
+
+    public Tarefa adicionarTarefa(String descricao) {
+        return repository.adicionarTarefa(descricao);
+    }
+
+    public List<Tarefa> listarTarefas() {
+        return repository.listarTarefas();
+    }
+
+    public boolean concluirTarefa(int id) {
+        Tarefa tarefa = repository.buscarPorId(id);
+        if (tarefa != null) {
+            tarefa.setConcluida(true);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removerTarefa(int id) {
+        return repository.removerTarefa(id);
+    }
+
+    public boolean editarTarefa(int id, String novaDescricao) {
+        Tarefa tarefa = repository.buscarPorId(id);
+        if (tarefa != null) {
+            tarefa.setDescricao(novaDescricao);
+            return true;
+        }
+        return false;
+    }
+}
